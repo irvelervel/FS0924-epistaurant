@@ -1,4 +1,5 @@
 import RestaurantNavbar from './components/RestaurantNavbar'
+import HomeContent from './components/HomeContent'
 
 // tolgo questo import CSS perchè utilizzeremo bootstrap
 // import './App.css'
@@ -9,6 +10,7 @@ function App() {
   return (
     <>
       <RestaurantNavbar />
+      <HomeContent />
     </>
   )
 }
