@@ -1,7 +1,8 @@
-import { Carousel, Container, Row, Col, ListGroup } from 'react-bootstrap'
+import { Carousel, Container, Row, Col } from 'react-bootstrap'
 import pastasciutte from '../data/menu.json'
 import { Component } from 'react'
 // pastasciutte è un array di oggetti!
+import PastaComments from './PastaComments'
 
 // ho bisogno di uno stato per memorizzare nel componente quale sia
 // la PASTA ATTIVA
@@ -21,12 +22,12 @@ class HomeContent extends Component {
           {/* <Col className="col-12 col-md-6 col-lg-4"> */}
           <Col xs={12} md={6}>
             <Carousel
-              onSlide={(i) => {
-                console.log('SLIDE CAMBIATA!', i)
+              onSlide={(nextSlideIndex) => {
+                console.log('SLIDE CAMBIATA!', nextSlideIndex)
                 // pastasciutte[i] è la nuova pasta che deve prendere il posto
                 // della corrente activePasta
                 this.setState({
-                  activePasta: pastasciutte[i],
+                  activePasta: pastasciutte[nextSlideIndex],
                 })
               }}
             >
@@ -50,15 +51,18 @@ class HomeContent extends Component {
             </Carousel>
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col xs={12} md={6}>
-            <ListGroup className="text-center">
-              {this.state.activePasta.comments.map((r) => {
-                return <ListGroup.Item key={r.id}>{r.comment}</ListGroup.Item>
-              })}
-            </ListGroup>
-          </Col>
-        </Row>
+
+        {/* rimetto qui sotto la sezione dei commenti, l'ho esportata
+              in un componente a parte che ho chiamato PastaComments */}
+
+        {/* la pasta attualmente visualizzata è salvata nello stato, in particolare sotto "this.state.activePasta" */}
+
+        {/* ora fornirò a PastaComments quale sia la pasta attiva,
+          in modo che ne possa mappare le recensioni */}
+
+        <PastaComments pasta={this.state.activePasta} />
+        {/* PastaComments è un componente che richiede una pastasciutta
+        e ne mostra sostanzialmente le recensioni */}
       </Container>
     )
   }
