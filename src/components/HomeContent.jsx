@@ -23,7 +23,7 @@ class HomeContent extends Component {
           <Col xs={12} md={6}>
             <Carousel
               onSlide={(nextSlideIndex) => {
-                console.log('SLIDE CAMBIATA!', nextSlideIndex)
+                // console.log('SLIDE CAMBIATA!', nextSlideIndex)
                 // pastasciutte[i] è la nuova pasta che deve prendere il posto
                 // della corrente activePasta
                 this.setState({

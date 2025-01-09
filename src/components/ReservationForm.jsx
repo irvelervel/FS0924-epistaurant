@@ -18,7 +18,22 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 // smoking -> boolean
 // specialRequests -> string
 
+// I form in React saranno sempre CONTROLLATI!
+// Cosa si intende per input controllato? Un input si definisce "controllato"
+// quando è legato allo stato del componente con un "two-way data binding"
+
 class ReservationForm extends Component {
+  state = {
+    reservation: {
+      name: '', // ho collegato questo valore alla proprietà "value" del campo nome
+      phone: '',
+      numberOfPeople: '1',
+      dateTime: '',
+      smoking: false,
+      specialRequests: '',
+    },
+  }
+
   render() {
     return (
       <Container>
@@ -30,17 +45,57 @@ class ReservationForm extends Component {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Il tuo nome</Form.Label>
-                <Form.Control type="text" placeholder="Mario Rossi" />
+                <Form.Control
+                  // freccia n.1, collego il valore dell'input allo stato
+                  value={this.state.reservation.name}
+                  onChange={(e) => {
+                    console.log('evento di change', e)
+                    // ora devo fare la freccia n.2
+                    // devo SETTARE lo stato con il valore inserito nell'input
+                    this.setState({
+                      reservation: {
+                        ...this.state.reservation,
+                        // ho creato una copia identica dell'oggetto reservation
+                        // nello state!
+                        name: e.target.value,
+                      },
+                    })
+                  }}
+                  type="text"
+                  placeholder="Mario Rossi"
+                />
               </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label>Numero di telefono</Form.Label>
-                <Form.Control type="tel" />
+                <Form.Control
+                  type="tel"
+                  value={this.state.reservation.phone}
+                  onChange={(e) =>
+                    this.setState({
+                      reservation: {
+                        ...this.state.reservation,
+                        phone: e.target.value,
+                      },
+                    })
+                  }
+                />
               </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label>In quanti siete?</Form.Label>
-                <Form.Select aria-label="Table size">
+                <Form.Select
+                  aria-label="Table size"
+                  value={this.state.reservation.numberOfPeople}
+                  onChange={(e) =>
+                    this.setState({
+                      reservation: {
+                        ...this.state.reservation,
+                        numberOfPeople: e.target.value,
+                      },
+                    })
+                  }
+                >
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -54,16 +109,51 @@ class ReservationForm extends Component {
 
               <Form.Group className="mb-3">
                 <Form.Label>Per quando?</Form.Label>
-                <Form.Control type="datetime-local" />
+                <Form.Control
+                  type="datetime-local"
+                  value={this.state.reservation.dateTime}
+                  onChange={(e) =>
+                    this.setState({
+                      reservation: {
+                        ...this.state.reservation,
+                        dateTime: e.target.value,
+                      },
+                    })
+                  }
+                />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Check type="checkbox" label="Tavolo fumatori?" />
+                <Form.Check
+                  type="checkbox"
+                  label="Tavolo fumatori?"
+                  checked={this.state.reservation.smoking}
+                  onChange={(e) =>
+                    this.setState({
+                      reservation: {
+                        ...this.state.reservation,
+                        smoking: e.target.checked,
+                      },
+                    })
+                  }
+                />
               </Form.Group>
 
               <Form.Group className="mb-3">
                 <Form.Label>Allergie/Cani/Bambini?</Form.Label>
-                <Form.Control as="textarea" rows={5} />
+                <Form.Control
+                  as="textarea"
+                  rows={5}
+                  value={this.state.reservation.specialRequests}
+                  onChange={(e) =>
+                    this.setState({
+                      reservation: {
+                        ...this.state.reservation,
+                        specialRequests: e.target.value,
+                      },
+                    })
+                  }
+                />
               </Form.Group>
 
               <Button variant="success" type="submit">
