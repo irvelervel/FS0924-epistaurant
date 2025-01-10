@@ -62,8 +62,29 @@ class AdminSection extends Component {
     }
   }
 
-  render() {
+  componentDidMount() {
+    // questo metodo riservato nei componenti a classe viene eseguito
+    // IMMEDIATAMENTE DOPO LA PRIMA INVOCAZIONE DI RENDER()
+    // 1) render()
+    // 2) componentDidMount()
+    console.log('SONO COMPONENTDIDMOUNT')
+    // dopo questa invocazione immediatamente dopo render(),
+    // componentDidMount() NON VERRÀ MAI PIÙ ESEGUITO.
+    // componentDidMount() di conseguenza è il posto PERFETTO
+    // per eseguire delle chiamate API all'avvio del componente!
     this.getReservationsAsyncAwait()
+  }
+
+  render() {
+    console.log('SONO RENDER')
+    // NON DOBBIAMO INSERIRE IN RENDER NESSUN METODO CHE CAMBI LO STATO
+    // perchè ad ogni cambio di stato, react RI-LANCIA il metodo render()!
+    // render() serve a mantenere "sincronizzati" i dati con il contenuto
+    // dell'interfaccia, non serve ad alto.
+
+    // RENDER viene RI-ESEGUITO ogni volta che in questo componente
+    // cambia lo STATO o cambiano le PROPS
+
     return (
       <Container>
         <Row className="justify-content-center my-3">
@@ -92,3 +113,9 @@ class AdminSection extends Component {
 }
 
 export default AdminSection
+
+// IL PROCESSO È:
+// 1) PRIMO RENDER
+// 2) COMPONENTDIDMOUNT
+// 3) SETSTATE NEL COMPONENTDIDMOUNT
+// 4) -> NUOVO RENDER()
