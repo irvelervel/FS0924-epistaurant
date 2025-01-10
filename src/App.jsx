@@ -6,11 +6,13 @@ import HomeContent from './components/HomeContent'
 // importiamo una volta per tutte il CSS di bootstrap, da node_modules
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ReservationForm from './components/ReservationForm'
+import AdminSection from './components/AdminSection'
 
 function App() {
   return (
     <>
       <RestaurantNavbar />
+      <AdminSection />
       <ReservationForm />
       <HomeContent />
     </>
